@@ -74,12 +74,12 @@ const MenuContainer = styled.div`
 const MenuItem = styled(Link)`
   text-decoration: none;
   color: black;
-  font-size: 24px; /* 메뉴 아이템의 폰트 크기 */
+  font-size: 24px;
   font-weight: bold;
-  padding: 15px 0; /* 메뉴 아이템의 패딩 */
-  flex: 1; /* 각 메뉴 아이템이 동일한 너비를 가지도록 함 */
-  text-align: center; /* 가운데 정렬 */
-  border-right: 1px solid #ccc; /* 우측에 구분선 추가 */
+  padding: 15px 0;
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #ccc;
   transition: background-color 0.3s ease;
   background-color: ${({ current }) => (current ? "red" : "blue")};
 
@@ -88,7 +88,7 @@ const MenuItem = styled(Link)`
   }
 
   &:last-child {
-    border-right: none; /* 마지막 메뉴 아이템의 우측 구분선 제거 */
+    border-right: none;
   }
 
   &.active {

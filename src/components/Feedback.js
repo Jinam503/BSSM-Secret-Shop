@@ -14,7 +14,7 @@ const Feedback = () => {
 export default Feedback;
 
 const Container = styled.div`
-  height: calc(100vh - 300px); /* 화면 높이 - 헤더 높이 */
+  height: calc(100vh - 300px);
   margin-top: 150px;
   display: flex;
   justify-content: center;
