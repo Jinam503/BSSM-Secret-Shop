@@ -13,7 +13,7 @@ const Product = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios
-        .get("http://localhost:8080/api/products")
+        .get(process.env.REACT_APP_SERVER_URL + "api/products")
         .then((res) => {
           setItems(res.data);
         });

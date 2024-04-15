@@ -92,7 +92,7 @@ const Purchase = () => {
       };
 
       axios
-        .post("http://localhost:8080/api/add_order", order)
+        .post(process.env.REACT_APP_SERVER_URL + "api/add_order", order)
         .then((response) => {
           alert("주문이 성공적으로 완료되었습니다!");
           setProducts([]);

@@ -13,7 +13,7 @@ const Hidden = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios
-        .get("http://localhost:8080/api/orders")
+        .get(process.env.REACT_APP_SERVER_URL + "api/orders")
         .then((res) => {
           setItems(res.data);
         });
@@ -23,7 +23,7 @@ const Hidden = () => {
   };
   const Reject = (orderId) => {
     axios
-      .delete("http://localhost:8080/api/delete_order/" + orderId)
+      .delete(process.env.REACT_APP_SERVER_URL + "api/delete_order/" + orderId)
       .then((response) => {
         alert("삭제 성공했습니다");
         window.location.reload();
@@ -35,7 +35,7 @@ const Hidden = () => {
   };
   const Accept = (orderId) => {
     axios
-      .put("http://localhost:8080/api/update_accepted/" + orderId)
+      .put(process.env.REACT_APP_SERVER_URL + "api/update_accepted/" + orderId)
       .then((response) => {
         alert("승인 성공");
         window.location.reload();

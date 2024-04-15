@@ -12,7 +12,7 @@ const Order = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios
-        .get("http://localhost:8080/api/orders")
+        .get(process.env.REACT_APP_SERVER_URL + "api/orders")
         .then((res) => {
           setItems(res.data);
         });
