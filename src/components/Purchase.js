@@ -7,8 +7,7 @@ const Purchase = () => {
       name: "파워에이드 1.5L",
       checked: true,
       description: "1.5L / 음료",
-      imageUrl:
-        "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
+      url: "images/products/powerade_1500.jpg",
       price: 3500,
       amount: 10,
     },
@@ -16,8 +15,7 @@ const Purchase = () => {
       name: "마이구미",
       checked: true,
       description: "60g / 젤리",
-      imageUrl:
-        "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
+      url: "images/products/powerade_1500.jpg",
       price: 1200,
       amount: 3,
     },
@@ -25,8 +23,7 @@ const Purchase = () => {
       name: "핫식스",
       checked: true,
       description: "380mL / 음료",
-      imageUrl:
-        "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
+      url: "images/products/hotsix.jpg",
       price: 1600,
       amount: 5,
     },
@@ -95,7 +92,7 @@ const Purchase = () => {
                   checked={product.checked}
                   onChange={() => toggleProductCheckbox(index)}
                 />
-                <ItemImage src={product.imageUrl} />
+                <ItemImage src={process.env.PUBLIC_URL + product.url} />
                 <ItemInformation>
                   <BoldText size="25px"> {product.name} </BoldText>
                   <LightText size="12px">{product.description}</LightText>
@@ -298,7 +295,6 @@ const Container = styled.div`
   flex-direction: column;
   background-color: red;
 
-  /* 하위 요소들이 화면을 채우도록 설정 */
   > * {
     flex-shrink: 1;
   }

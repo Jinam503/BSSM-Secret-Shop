@@ -1,40 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const Product = () => {
-  const items = [
-    {
-      name: "핫식스 제로",
-      price: 1600,
-      url: "https://img.danawa.com/prod_img/500000/998/217/img/17217998_1.jpg?_v=20230131144242",
-    },
-    {
-      name: "파워에이드 1.5L",
-      price: 3500,
-      url: "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
-    },
-    {
-      name: "파워에이드 1.5L",
-      price: 3500,
-      url: "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
-    },
-    {
-      name: "파워에이드 1.5L",
-      price: 3500,
-      url: "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
-    },
-  ];
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios
+        .get("http://localhost:8080/api/products")
+        .then((res) => {
+          setItems(res.data);
+        });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
   return (
     <div>
       <Container>
         <Content>
           {items.map((item, index) => (
             <Item key={index}>
-              <ItemImage src={item.url} alt={item.name} />
+              <ItemImage src={item.imageUrl} alt={item.name} />
               <ItemInfo>
                 <ItemName>{item.name}</ItemName>
                 <ItemPrice>{item.price}원</ItemPrice>
               </ItemInfo>
+              <ItemStock>
+                <LightText>남아있는 재고:</LightText>
+                <BoldText style={{ fontSize: "18px" }}>{item.stock}</BoldText>
+              </ItemStock>
+              <AddToCartButton onClick={{}}>추가</AddToCartButton>
             </Item>
           ))}
         </Content>
@@ -45,17 +45,38 @@ const Product = () => {
 
 export default Product;
 
+const AddToCartButton = styled.button`
+  width: 70px;
+  height: 60px;
+`;
+
+const BoldText = styled.p`
+  font-size: ${(props) => (props.size ? props.size : "14px")};
+  font-weight: 1000;
+`;
+const LightText = styled.p`
+  font-size: ${(props) => (props.size ? props.size : "14px")};
+`;
+const ItemStock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  height: 50px;
+  background-color: lawngreen;
+`;
 const Item = styled.div`
   display: flex;
   background-color: grey;
   padding: 10px;
   margin: 10px;
+  width: 600px;
   align-items: center;
 `;
 
 const ItemImage = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100 px;
   margin-right: 10px;
 `;
 
@@ -78,7 +99,14 @@ const Content = styled.div`
 `;
 
 const Container = styled.div`
-  background-color: pink;
+  min-height: calc(100vh - 300px);
+  margin-top: 150px;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  background-color: red;
+
+  > * {
+    flex-shrink: 1;
+  }
 `;
