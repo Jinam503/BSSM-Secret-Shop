@@ -13,6 +13,16 @@ const Product = () => {
       price: 3500,
       url: "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
     },
+    {
+      name: "파워에이드 1.5L",
+      price: 3500,
+      url: "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
+    },
+    {
+      name: "파워에이드 1.5L",
+      price: 3500,
+      url: "https://img.danawa.com/prod_img/500000/618/104/img/3104618_1.jpg?_v=20180524134157",
+    },
   ];
   return (
     <div>
