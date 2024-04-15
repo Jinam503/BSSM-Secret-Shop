@@ -113,7 +113,7 @@ const Purchase = () => {
           <p style={{ fontSize: "50px", marginBottom: "10px" }}>장바구니</p>
           <div
             style={{
-              borderBottom: "2px solid #aaa",
+              borderBottom: "2px solid #000000",
               marginBottom: "10px",
             }}
           />
@@ -264,7 +264,6 @@ const ProductDeleteButton = styled.button`
 const ButtonsBox = styled.div`
   display: flex;
   width: 100px;
-  background-color: red;
   justify-content: space-between;
 `;
 const AmountAddButton = styled.button`
@@ -322,7 +321,7 @@ const Price = styled.div`
   align-items: center;
 `;
 const PriceBox = styled.div`
-  border: 2px solid #aaa;
+  border: 2px solid #000000;
   width: 380px;
   margin-left: 10px;
   margin-right: 10px;
@@ -330,7 +329,6 @@ const PriceBox = styled.div`
 const TitleDiv = styled.div`
   justify-content: flex-end;
   color: black;
-  background-color: lightgray;
   width: 1000px;
 `;
 const CartDiv = styled.div`
@@ -341,7 +339,7 @@ const CartPrice = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: lightcyan;
+  background-color: #fcfcfc;
 `;
 const Container = styled.div`
   min-height: calc(100vh - 350px);
@@ -349,7 +347,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: red;
 
   > * {
     flex-shrink: 1;
@@ -360,13 +357,12 @@ const CartList = styled.div`
   flex-direction: column;
   display: flex;
   width: 600px;
-  background-color: green;
+  background-color: #f5f5f5;
 `;
 const CartItem = styled.div`
   display: flex;
   align-items: center;
 
-  background-color: lavender;
   margin: 10px;
   height: 120px;
   width: 580px;

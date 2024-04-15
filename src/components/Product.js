@@ -61,8 +61,8 @@ const Product = () => {
                 <ItemName>{item.name}</ItemName>
                 <ItemPrice>{item.price}원</ItemPrice>
               </ItemInfo>
-              <ItemStock>
-                <LightText>남아있는 재고:</LightText>
+              <ItemStock style={{ marginRight: "15px" }}>
+                <LightText>남아있는 재고:&nbsp;</LightText>
                 <BoldText style={{ fontSize: "18px" }}>{item.stock}</BoldText>
               </ItemStock>
               <AddToCartButton onClick={() => AddProductToCart(item)}>
@@ -96,11 +96,10 @@ const ItemStock = styled.div`
   align-items: center;
   margin-left: auto;
   height: 50px;
-  background-color: lawngreen;
 `;
 const Item = styled.div`
   display: flex;
-  background-color: grey;
+  background-color: #ececec;
   padding: 10px;
   margin: 10px;
   width: 600px;
@@ -127,7 +126,6 @@ const ItemPrice = styled.div``;
 const Content = styled.div`
   height: auto;
   min-height: 100%;
-  background-color: red;
   padding-top: 150px;
 `;
 
@@ -137,7 +135,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: red;
 
   > * {
     flex-shrink: 1;

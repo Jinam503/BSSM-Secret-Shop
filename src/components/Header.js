@@ -55,7 +55,6 @@ const HeaderContainer = styled.div`
   left: 0;
   right: 0;
   height: 150px;
-  background-color: palegoldenrod;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,12 +69,13 @@ const HeaderDiv = styled.div`
   font-weight: 1000;
   height: 100px;
   width: 100%;
-  background-color: pink;
+  background-color: #fff3f3;
 `;
 
 const MenuContainer = styled.div`
   display: flex;
   width: 100%;
+  box-shadow: 0px 6px 8px #dddddd;
 `;
 
 const MenuItem = styled(Link)`
@@ -86,19 +86,16 @@ const MenuItem = styled(Link)`
   padding: 15px 0;
   flex: 1;
   text-align: center;
-  border-right: 1px solid #ccc;
-  transition: background-color 0.3s ease;
-  background-color: ${({ current }) => (current ? "red" : "blue")};
+  transition: background-color 0.15s ease;
+  background-color: ${({ current }) => (current ? "#eeeeee" : "white")};
+  z-index: 1;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #eeeeee;
+    transform: scale(1.05);
   }
 
   &:last-child {
     border-right: none;
-  }
-
-  &.active {
-    background-color: #c5e1a5;
   }
 `;
