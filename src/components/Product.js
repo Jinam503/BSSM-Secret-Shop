@@ -54,22 +54,33 @@ const Product = () => {
     <div>
       <Container>
         <Content>
-          {items.map((item, index) => (
-            <Item key={index}>
-              <ItemImage src={item.imageUrl} alt={item.name} />
-              <ItemInfo>
-                <ItemName>{item.name}</ItemName>
-                <ItemPrice>{item.price}원</ItemPrice>
-              </ItemInfo>
-              <ItemStock style={{ marginRight: "15px" }}>
-                <LightText>남아있는 재고:&nbsp;</LightText>
-                <BoldText style={{ fontSize: "18px" }}>{item.stock}</BoldText>
-              </ItemStock>
-              <AddToCartButton onClick={() => AddProductToCart(item)}>
-                추가
-              </AddToCartButton>
-            </Item>
-          ))}
+          <TitleDiv>
+            <p style={{ fontSize: "50px", marginBottom: "10px" }}>메뉴</p>
+            <div
+              style={{
+                borderBottom: "2px solid #000000",
+                marginBottom: "10px",
+              }}
+            />
+          </TitleDiv>
+          <ItemsDiv>
+            {items.map((item, index) => (
+              <Item key={index}>
+                <ItemImage src={item.imageUrl} alt={item.name} />
+                <ItemInfo>
+                  <ItemName>{item.name}</ItemName>
+                  <ItemPrice>{item.price}원</ItemPrice>
+                </ItemInfo>
+                <ItemStock style={{ marginRight: "15px" }}>
+                  <LightText>남아있는 재고:&nbsp;</LightText>
+                  <BoldText style={{ fontSize: "18px" }}>{item.stock}</BoldText>
+                </ItemStock>
+                <AddToCartButton onClick={() => AddProductToCart(item)}>
+                  추가
+                </AddToCartButton>
+              </Item>
+            ))}
+          </ItemsDiv>
         </Content>
       </Container>
     </div>
@@ -78,11 +89,18 @@ const Product = () => {
 
 export default Product;
 
+const ItemsDiv = styled.div`
+  margin-bottom: 200px;
+`;
 const AddToCartButton = styled.button`
   width: 70px;
   height: 60px;
 `;
-
+const TitleDiv = styled.div`
+  justify-content: flex-end;
+  color: black;
+  width: 1000px;
+`;
 const BoldText = styled.p`
   font-size: ${(props) => (props.size ? props.size : "14px")};
   font-weight: 1000;
@@ -101,8 +119,8 @@ const Item = styled.div`
   display: flex;
   background-color: #ececec;
   padding: 10px;
-  margin: 10px;
-  width: 600px;
+  margin-bottom: 10px;
+  width: 1000px;
   align-items: center;
 `;
 

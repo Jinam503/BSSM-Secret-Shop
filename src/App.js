@@ -8,8 +8,10 @@ import Purchase from "./components/Purchase";
 import Feedback from "./components/Feedback";
 import Order from "./components/Order";
 import Main from "./components/Main";
+import Hidden from "./components/Hidden";
 
 const App = () => {
+  console.log(process.env.REACT_APP_SECRET_URL);
   return (
     <div>
       <BrowserRouter>
@@ -20,6 +22,10 @@ const App = () => {
           <Route path="/product" element={<Product />}></Route>
           <Route path="/feedback" element={<Feedback />}></Route>
           <Route path="/order" element={<Order />}></Route>
+          <Route
+            path={"/" + process.env.REACT_APP_SECRET_URL}
+            element={<Hidden />}
+          ></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

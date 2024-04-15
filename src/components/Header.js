@@ -69,7 +69,7 @@ const HeaderDiv = styled.div`
   font-weight: 1000;
   height: 100px;
   width: 100%;
-  background-color: #fff3f3;
+  background-color: #ffcbc0;
 `;
 
 const MenuContainer = styled.div`

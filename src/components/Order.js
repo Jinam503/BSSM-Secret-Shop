@@ -24,14 +24,43 @@ const Order = () => {
     <div>
       <Container>
         <Content>
-          {items.map((order, index) => (
-            <Item key={index}>
-              <ItemInfo>
-                <ItemName>주문자 이름 {order.ordererName}</ItemName>
-                <ItemPrice>총 {order.totalPrice}원</ItemPrice>
-              </ItemInfo>
-            </Item>
-          ))}
+          <TitleDiv>
+            <p style={{ fontSize: "50px", marginBottom: "10px" }}>주문</p>
+            <div
+              style={{
+                borderBottom: "2px solid #000000",
+                marginBottom: "10px",
+              }}
+            />
+          </TitleDiv>
+          <ItemsDiv>
+            {items.map((order) => (
+              <Item key={order.id}>
+                <ItemInfo>
+                  <ItemName>
+                    <BoldText style={{ fontSize: "22px" }}>
+                      {order.ordererName}
+                    </BoldText>
+                  </ItemName>
+                  <ItemPrice>
+                    <BoldText style={{ fontSize: "20px" }}>
+                      총 {order.totalPrice}원
+                    </BoldText>
+                  </ItemPrice>
+                  {order.orderedProducts.map((e) => (
+                    <ItemPrice>
+                      {e.name} - {e.amount}개
+                    </ItemPrice>
+                  ))}
+                </ItemInfo>
+                {!order.accepted ? (
+                  <p>승인 대기중</p>
+                ) : (
+                  <p style={{ color: "green" }}>결제 완료</p>
+                )}
+              </Item>
+            ))}
+          </ItemsDiv>
         </Content>
       </Container>
     </div>
@@ -39,12 +68,9 @@ const Order = () => {
 };
 
 export default Order;
-
-const AddToCartButton = styled.button`
-  width: 70px;
-  height: 60px;
+const ItemsDiv = styled.div`
+  margin-bottom: 200px;
 `;
-
 const BoldText = styled.p`
   font-size: ${(props) => (props.size ? props.size : "14px")};
   font-weight: 1000;
@@ -52,27 +78,20 @@ const BoldText = styled.p`
 const LightText = styled.p`
   font-size: ${(props) => (props.size ? props.size : "14px")};
 `;
-const ItemStock = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  height: 50px;
-  background-color: lawngreen;
+const TitleDiv = styled.div`
+  justify-content: flex-end;
+  color: black;
+  width: 1000px;
 `;
 const Item = styled.div`
   display: flex;
-  background-color: grey;
+  background-color: #eeeeee;
   padding: 10px;
-  margin: 10px;
-  width: 600px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  width: 1000px;
   align-items: center;
-`;
-
-const ItemImage = styled.img`
-  width: 100px;
-  height: 100 px;
-  margin-right: 10px;
+  justify-content: space-between;
 `;
 
 const ItemInfo = styled.div`
@@ -89,7 +108,6 @@ const ItemPrice = styled.div``;
 const Content = styled.div`
   height: auto;
   min-height: 100%;
-  background-color: red;
   padding-top: 150px;
 `;
 
@@ -99,7 +117,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: red;
 
   > * {
     flex-shrink: 1;
