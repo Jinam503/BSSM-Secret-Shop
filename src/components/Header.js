@@ -29,6 +29,13 @@ const Header = () => {
           구매
         </MenuItem>
         <MenuItem
+          to="/order"
+          activeClassName="active"
+          current={location.pathname === "/order"}
+        >
+          주문내역
+        </MenuItem>
+        <MenuItem
           to="/feedback"
           activeClassName="active"
           current={location.pathname === "/feedback"}
@@ -47,7 +54,7 @@ const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 150px; /* 헤더 및 메뉴의 총 높이 */
+  height: 150px;
   background-color: palegoldenrod;
   display: flex;
   flex-direction: column;
@@ -59,7 +66,7 @@ const HeaderDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 40px; /* 헤더의 글꼴 크기 조정 */
+  font-size: 40px;
   font-weight: 1000;
   height: 100px;
   width: 100%;
