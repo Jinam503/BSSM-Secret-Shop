@@ -1,76 +1,111 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import { useProducts } from "./ProductsContext";
 
 const Purchase = () => {
-  const [productsDummy, setProductDummy] = useState([
-    {
-      name: "파워에이드 1.5L",
-      checked: true,
-      description: "1.5L / 음료",
-      url: "images/products/powerade_1500.jpg",
-      price: 3500,
-      amount: 10,
-    },
-    {
-      name: "마이구미",
-      checked: true,
-      description: "60g / 젤리",
-      url: "images/products/powerade_1500.jpg",
-      price: 1200,
-      amount: 3,
-    },
-    {
-      name: "핫식스",
-      checked: true,
-      description: "380mL / 음료",
-      url: "images/products/hotsix.jpg",
-      price: 1600,
-      amount: 5,
-    },
-  ]);
-  const [productsPrice, setProductsPrice] = useState(10000);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { products, setProducts } = useProducts();
+  const [productsPrice, setProductsPrice] = useState(0);
   const [deliveryDesired, setDeliveryDesired] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const [ordererName, setOrdererName] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
 
   useEffect(() => {
     let totalPrice = 0;
-    productsDummy.forEach((product) => {
+    products.forEach((product) => {
       if (product.checked) {
         totalPrice += product.price * product.amount;
       }
     });
     setProductsPrice(totalPrice);
-    setTotalPrice(productsPrice + (deliveryDesired ? 300 : 0));
-  }, [productsDummy]);
+    setTotalPrice(totalPrice + (deliveryDesired ? 300 : 0));
+  }, [products, deliveryDesired]);
 
   useEffect(() => {
-    let totalPrice = productsPrice + (deliveryDesired ? 300 : 0);
-    setTotalPrice(totalPrice);
-  }, [productsPrice, deliveryDesired]);
+    let total = 0;
+    products.forEach((product) => {
+      if (product.checked) {
+        total += product.amount;
+      }
+    });
+    setTotalAmount(total);
+  }, [products]);
 
   const toggleProductCheckbox = (index) => {
-    const updatedProducts = [...productsDummy];
+    const updatedProducts = [...products];
     updatedProducts[index].checked = !updatedProducts[index].checked;
-    setProductDummy(updatedProducts);
+    setProducts(updatedProducts);
   };
+
   const increaseAmount = (index) => {
-    const updatedProducts = [...productsDummy];
-    updatedProducts[index].amount++;
-    setProductDummy(updatedProducts);
+    const updatedProducts = [...products];
+
+    if (updatedProducts[index].amount < updatedProducts[index].maxStock) {
+      updatedProducts[index].amount++;
+      setProducts(updatedProducts);
+    } else {
+      alert("재고가 부족하노..");
+    }
   };
 
   const decreaseAmount = (index) => {
-    const updatedProducts = [...productsDummy];
+    const updatedProducts = [...products];
     if (updatedProducts[index].amount > 1) {
       updatedProducts[index].amount--;
-      setProductDummy(updatedProducts);
+      setProducts(updatedProducts);
     }
   };
+
   const deleteProduct = (index) => {
-    const updatedProducts = [...productsDummy];
+    const updatedProducts = [...products];
     updatedProducts.splice(index, 1);
-    setProductDummy(updatedProducts);
+    setProducts(updatedProducts);
   };
+  const AddOrder = () => {
+    if (totalAmount <= 0) {
+      alert("장바구니 비었다 게이야");
+    } else if (ordererName.length <= 0) {
+      alert("이름 입력해라 게이야");
+    } else if (deliveryAddress.length <= 0 && deliveryDesired) {
+      alert("배송지 입력해라 게이야");
+    } else {
+      let orderedProductsStr = "";
+      products.forEach((product) => {
+        if (product.checked) {
+          if (orderedProductsStr !== "") {
+            orderedProductsStr += ",";
+          }
+          orderedProductsStr += `${product.id}:${product.amount}`;
+        }
+      });
+
+      const order = {
+        ordererName: ordererName,
+        needDelivery: deliveryDesired,
+        deliverPlace: deliveryAddress,
+        totalPrice: totalPrice,
+        accepted: false,
+        orderedProducts: orderedProductsStr,
+      };
+
+      axios
+        .post("http://localhost:8080/api/add_order", order)
+        .then((response) => {
+          alert("주문이 성공적으로 완료되었습니다!");
+          setProducts([]);
+          setDeliveryDesired(false);
+          setOrdererName("");
+        })
+        .catch((error) => {
+          alert("주문을 처리하는 도중 오류가 발생했습니다.");
+          console.error("Error while adding order:", error);
+        });
+    }
+  };
+
   return (
     <div>
       <Container>
@@ -85,7 +120,7 @@ const Purchase = () => {
         </TitleDiv>
         <CartDiv>
           <CartList>
-            {productsDummy.map((product, index) => (
+            {products.map((product, index) => (
               <CartItem key={index}>
                 <CheckBox
                   style={{ marginRight: "20px" }}
@@ -95,7 +130,9 @@ const Purchase = () => {
                 <ItemImage src={process.env.PUBLIC_URL + product.url} />
                 <ItemInformation>
                   <BoldText size="25px"> {product.name} </BoldText>
-                  <LightText size="12px">{product.description}</LightText>
+                  <LightText size="12px">
+                    {product.description} / {product.category}
+                  </LightText>
                   <BoldText size="16px">
                     {product.amount * product.price}원
                   </BoldText>
@@ -122,9 +159,24 @@ const Purchase = () => {
               <BoldText style={{ margin: "10px 0 10px 0" }}>
                 이름 (입금자명과 일치하야 함)
               </BoldText>
-              <TextInput type="text" placeholder="백진암" />
+              <TextInput
+                value={ordererName}
+                onChange={(e) => setOrdererName(e.target.value)}
+                type="text"
+                placeholder="백진암"
+              />
             </InputBox>
             <PriceBox style={{ marginTop: "20px" }}>
+              <Price>
+                <BoldText>총 갯수:</BoldText>
+                <BoldText
+                  style={{
+                    marginLeft: "auto",
+                  }}
+                >
+                  {totalAmount}개
+                </BoldText>
+              </Price>
               <Price>
                 <BoldText>물품 가격:</BoldText>
                 <BoldText
@@ -174,10 +226,14 @@ const Purchase = () => {
                 <BoldText style={{ margin: "10px 0 10px 0" }}>
                   호실 (3층만)
                 </BoldText>
-                <TextInput type="text" placeholder="309호" />
+                <TextInput
+                  type="text"
+                  onChange={(e) => setDeliveryAddress(e.target.value)}
+                  placeholder="309호"
+                />
               </InputBox>
             )}
-            <PurchaseButton>주문하기</PurchaseButton>
+            <PurchaseButton onClick={AddOrder}>주문하기</PurchaseButton>
           </CartPrice>
         </CartDiv>
       </Container>
