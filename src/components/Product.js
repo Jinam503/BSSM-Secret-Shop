@@ -59,7 +59,7 @@ const Product = () => {
             <div
               style={{
                 borderBottom: "2px solid #000000",
-                marginBottom: "10px",
+                marginBottom: "40px",
               }}
             />
           </TitleDiv>
@@ -90,11 +90,31 @@ const Product = () => {
 export default Product;
 
 const ItemsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   margin-bottom: 200px;
 `;
 const AddToCartButton = styled.button`
   width: 70px;
   height: 60px;
+
+  font-size: 16px;
+
+  outline: none;
+  background-color: #cccccc;
+  border: none;
+  border-radius: 8px;
+  color: #666666;
+
+  cursor: pointer;
+
+  transition: ease-out 0.25s;
+
+  &:hover {
+    background-color: #dddddd;
+    transform: scale(1.05);
+  }
 `;
 const TitleDiv = styled.div`
   justify-content: flex-end;
@@ -117,16 +137,16 @@ const ItemStock = styled.div`
 `;
 const Item = styled.div`
   display: flex;
-  background-color: #ececec;
+  background-color: white;
   padding: 10px;
-  margin-bottom: 10px;
   width: 1000px;
   align-items: center;
+  box-shadow: 0px 0px 8px #dedede;
 `;
 
 const ItemImage = styled.img`
   width: 100px;
-  height: 100 px;
+  height: 100px;
   margin-right: 10px;
 `;
 
@@ -144,12 +164,11 @@ const ItemPrice = styled.div``;
 const Content = styled.div`
   height: auto;
   min-height: 100%;
-  padding-top: 150px;
 `;
 
 const Container = styled.div`
-  min-height: calc(100vh - 300px);
-  margin-top: 150px;
+  min-height: calc(100vh - 350px);
+  margin-top: 200px;
   display: flex;
   align-items: center;
   flex-direction: column;
