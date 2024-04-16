@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { useProducts } from "./ProductsContext";
 
 const Purchase = () => {
-  const { products, setProducts } = useProducts();
+  const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
   const [productsPrice, setProductsPrice] = useState(0);
   const [deliveryDesired, setDeliveryDesired] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
 
   const [ordererName, setOrdererName] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
@@ -43,7 +42,10 @@ const Purchase = () => {
   const increaseAmount = (index) => {
     const updatedProducts = [...products];
 
-    if (updatedProducts[index].amount < updatedProducts[index].maxStock) {
+    if (
+      updatedProducts[index].amount < updatedProducts[index].maxStock &&
+      totalAmount < 10
+    ) {
       updatedProducts[index].amount++;
       setProducts(updatedProducts);
     } else {
@@ -233,7 +235,11 @@ const Purchase = () => {
                 />
               </InputBox>
             )}
-            <PurchaseButton onClick={AddOrder}>주문하기</PurchaseButton>
+            <PurchaseButton onClick={AddOrder}>
+              <span>
+                <BoldText style={{ fontSize: "16px" }}>주문하기</BoldText>
+              </span>
+            </PurchaseButton>
           </CartPrice>
         </CartDiv>
       </Container>
@@ -307,6 +313,13 @@ const PurchaseButton = styled.button`
   height: 50px;
   border-radius: 10px;
   border: none;
+  cursor: pointer;
+
+  transition: ease-out 0.2s;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 const BoldText = styled.p`
   font-size: ${(props) => (props.size ? props.size : "14px")};

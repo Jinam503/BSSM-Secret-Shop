@@ -92,10 +92,5 @@ const MenuItem = styled(Link)`
 
   &:hover {
     background-color: #eeeeee;
-    transform: scale(1.05);
-  }
-
-  &:last-child {
-    border-right: none;
   }
 `;
