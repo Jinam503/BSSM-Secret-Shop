@@ -23,7 +23,6 @@ export const AddToCartButton = styled.button`
   transition: ease-out 0.25s;
 
   &:hover {
-    background-color: #dddddd;
     transform: scale(1.05);
   }
 `;
@@ -52,6 +51,10 @@ export const Item = styled.div`
   align-items: center;
   border-top: ${(props) => (props.index === 0 ? "1px solid #cccccc" : "")};
   border-bottom: 1px solid #dddddd;
+
+  &:hover {
+    background-color: #eeeeee;
+  }
 `;
 
 export const ItemImage = styled.img`
@@ -64,12 +67,6 @@ export const ItemInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-export const ItemName = styled.div`
-  font-weight: bold;
-`;
-
-export const ItemPrice = styled.div``;
 
 export const Content = styled.div`
   display: flex;

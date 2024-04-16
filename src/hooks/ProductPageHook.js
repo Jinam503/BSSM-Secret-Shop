@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import axios from "axios";
 
 export const useProductPage = (setItems, products, setProducts) => {
@@ -22,7 +21,7 @@ export const useProductPage = (setItems, products, setProducts) => {
       if (updatedProducts[index].amount < updatedProducts[index].maxStock) {
         updatedProducts[index].amount++;
         setProducts(updatedProducts);
-      } else alert("재고가 부족하노..");
+      } else alert("재고 부족");
     } else {
       const newItem = {
         id: item.id,
