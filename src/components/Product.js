@@ -23,7 +23,6 @@ const Product = () => {
   };
 
   const AddProductToCart = (item) => {
-    console.log(item);
     const index = products.findIndex((product) => product.id === item.id);
 
     if (index !== -1) {
@@ -48,6 +47,7 @@ const Product = () => {
       };
       setProducts([...products, newItem]);
     }
+    alert("장바구니에 " + item.name + " 추가");
   };
 
   return (
