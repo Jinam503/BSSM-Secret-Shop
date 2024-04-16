@@ -11,7 +11,7 @@ const Header = () => {
         to="/"
         style={{ textDecoration: "none", color: "black", width: "100%" }}
       >
-        <HeaderDiv>BSSM 비밀 상점 v1.0.0</HeaderDiv>
+        <HeaderDiv>BSSM 비밀 상점 v1.0.1</HeaderDiv>
       </Link>
       <MenuContainer>
         <MenuItem
@@ -19,7 +19,7 @@ const Header = () => {
           activeClassName="active"
           current={location.pathname === "/product"}
         >
-          메뉴
+          상품
         </MenuItem>
         <MenuItem
           to="/purchase"
