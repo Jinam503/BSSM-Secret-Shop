@@ -47,7 +47,7 @@ const Purchase = () => {
       updatedProducts[index].amount++;
       setProducts(updatedProducts);
     } else {
-      alert("재고가 부족하노..");
+      alert("재고 부족");
     }
   };
 
@@ -66,11 +66,11 @@ const Purchase = () => {
   };
   const AddOrder = () => {
     if (totalAmount <= 0) {
-      alert("장바구니 비었다 게이야");
+      alert("장바구니에 상품이 없습니다");
     } else if (ordererName.length <= 0) {
-      alert("이름 입력해라 게이야");
+      alert("이름을 입력해주세요");
     } else if (deliveryAddress.length <= 0 && deliveryDesired) {
-      alert("배송지 입력해라 게이야");
+      alert("배송지를 입력해주세요");
     } else {
       let orderedProductsStr = "";
       products.forEach((product) => {
