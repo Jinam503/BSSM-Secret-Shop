@@ -50,7 +50,7 @@ export const Item = styled.div`
   width: 800px;
   align-items: center;
   border-top: ${(props) => (props.index === 0 ? "1px solid #cccccc" : "")};
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #cccccc;
 
   &:hover {
     background-color: #eeeeee;
@@ -70,6 +70,7 @@ export const ItemInfo = styled.div`
 
 export const Content = styled.div`
   display: flex;
+  margin-bottom: 150px;
   width: 1050px;
   gap: 50px;
 `;

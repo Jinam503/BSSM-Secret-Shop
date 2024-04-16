@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import * as B from "../../styles/BaseStructueStyle";
 import { useProducts } from "../../components/ProductsContext";
 
 const Purchase = () => {
@@ -110,12 +111,11 @@ const Purchase = () => {
 
   return (
     <div>
-      <Container>
+      <B.BodyContainer>
         <TitleDiv>
-          <p style={{ fontSize: "50px", marginBottom: "10px" }}>장바구니</p>
           <div
             style={{
-              borderBottom: "2px solid #000000",
+              borderBottom: "2px solid #bbbbbb",
               marginBottom: "10px",
             }}
           />
@@ -242,7 +242,7 @@ const Purchase = () => {
             </PurchaseButton>
           </CartPrice>
         </CartDiv>
-      </Container>
+      </B.BodyContainer>
     </div>
   );
 };

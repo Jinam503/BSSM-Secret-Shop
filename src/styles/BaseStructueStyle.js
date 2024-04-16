@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const BodyContainer = styled.div`
-  min-height: calc(100vh - 450px); // header:150, footer:300
+  min-height: calc(100vh - 350px); // header:150, footer:150
   margin-top: 200px; // header150 + default 50
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@ export const FooterContainer = styled.div`
   background-color: #3e3e3e;
   position: relative;
   color: white;
-  height: 300px;
+  height: 150px;
 `;
 
 export const HeaderContainer = styled.div`
