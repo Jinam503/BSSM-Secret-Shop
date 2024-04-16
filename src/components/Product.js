@@ -64,8 +64,8 @@ const Product = () => {
             />
           </TitleDiv>
           <ItemsDiv>
-            {items.map((item, index) => (
-              <Item key={index}>
+            {items.map((item) => (
+              <Item key={item.id}>
                 <ItemImage src={item.imageUrl} alt={item.name} />
                 <ItemInfo>
                   <ItemName>{item.name}</ItemName>
