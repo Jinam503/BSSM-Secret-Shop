@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useProducts } from "../components/ProductsContext";
+import { useProducts } from "../../components/ProductsContext";
 
 const Order = () => {
   const [items, setItems] = useState([]);

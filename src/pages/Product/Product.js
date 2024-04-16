@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useProducts } from "../components/ProductsContext";
-import { useProductPage } from "../hooks/ProductPageHook";
-import * as B from "../styles/BaseStructueStyle";
-import * as S from "../styles/pages/ProductPageStyle";
+import { useProducts } from "../../components/ProductsContext";
+import { useProductPage } from "./hooks/ProductPageHook";
+import * as B from "../../styles/BaseStructueStyle";
+import * as S from "./style/ProductPageStyle";
 
 const Product = () => {
   const categories = ["전체", "음료", "젤리", "과자", "라면"];

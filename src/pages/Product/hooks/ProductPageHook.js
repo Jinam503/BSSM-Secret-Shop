@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast, { notify } from "../components/Toast";
+import Toast, { notify } from "../../../components/Toast";
 
 export const useProductPage = (setItems, products, setProducts) => {
   const fetchProducts = async () => {

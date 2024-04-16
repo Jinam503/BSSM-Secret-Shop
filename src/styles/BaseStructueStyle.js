@@ -12,8 +12,9 @@ export const FooterContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #cccccc;
+  background-color: #3e3e3e;
   position: relative;
+  color: white;
   height: 300px;
 `;
 
