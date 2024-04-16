@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast, { notify } from "../../../components/Toast";
+import { notify } from "../../../components/Toast";
 
 export const useProductPage = (setItems, products, setProducts) => {
   const fetchProducts = async () => {
@@ -58,6 +58,5 @@ export const useProductPage = (setItems, products, setProducts) => {
   return {
     fetchProducts,
     AddProductToCart,
-    Toast,
   };
 };

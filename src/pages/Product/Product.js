@@ -9,7 +9,7 @@ const Product = () => {
   const { products, setProducts } = useProducts();
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState("전체");
-  const { fetchProducts, AddProductToCart, Toast } = useProductPage(
+  const { fetchProducts, AddProductToCart } = useProductPage(
     setItems,
     products,
     setProducts
@@ -62,7 +62,6 @@ const Product = () => {
           </S.ItemsDiv>
         </S.Content>
       </B.BodyContainer>
-      <Toast />
     </div>
   );
 };

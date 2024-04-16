@@ -9,9 +9,9 @@ import Feedback from "./pages/Feedback/Feedback";
 import Order from "./pages/Order/Order";
 import Main from "./pages/Main/Main";
 import Hidden from "./pages/Hidden/Hidden";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
-  console.log(process.env.REACT_APP_SECRET_URL);
   return (
     <div>
       <BrowserRouter>
@@ -28,6 +28,19 @@ const App = () => {
           ></Route>
         </Routes>
         <Footer />
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="colored"
+        />
       </BrowserRouter>
     </div>
   );

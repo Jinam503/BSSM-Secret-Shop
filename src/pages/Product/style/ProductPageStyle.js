@@ -13,10 +13,11 @@ export const AddToCartButton = styled.button`
   font-size: 16px;
 
   outline: none;
-  background-color: #cccccc;
+
+  background-color: #8d8c9a;
   border: none;
   border-radius: 8px;
-  color: #666666;
+  color: white;
 
   cursor: pointer;
 
