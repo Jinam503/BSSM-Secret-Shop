@@ -20,10 +20,6 @@ const Main = () => {
 export default Main;
 
 const MainContainer = styled.div`
-  height: calc(100vh - 300px);
+  height: calc(100vh - 450px);
   margin-top: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useProducts } from "./ProductsContext";
+import { useProducts } from "../components/ProductsContext";
 
 const Purchase = () => {
   const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
@@ -49,7 +49,7 @@ const Purchase = () => {
       updatedProducts[index].amount++;
       setProducts(updatedProducts);
     } else {
-      alert("재고 부족");
+      alert("상품은 최대 10까지 담을 수 있습니다.");
     }
   };
 

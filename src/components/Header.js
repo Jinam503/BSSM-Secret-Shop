@@ -19,7 +19,7 @@ const Header = () => {
           activeClassName="active"
           current={location.pathname === "/product"}
         >
-          메뉴
+          상품
         </MenuItem>
         <MenuItem
           to="/purchase"

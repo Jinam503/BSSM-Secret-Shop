@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useProducts } from "./ProductsContext";
+import { useProducts } from "../components/ProductsContext";
 
 const Order = () => {
   const [items, setItems] = useState([]);
@@ -34,32 +34,35 @@ const Order = () => {
             />
           </TitleDiv>
           <ItemsDiv>
-            {items.map((order) => (
-              <Item key={order.id}>
-                <ItemInfo>
-                  <ItemName>
-                    <BoldText style={{ fontSize: "22px" }}>
-                      {order.ordererName}
-                    </BoldText>
-                  </ItemName>
-                  <ItemPrice>
-                    <BoldText style={{ fontSize: "20px" }}>
-                      총 {order.totalPrice}원
-                    </BoldText>
-                  </ItemPrice>
-                  {order.orderedProducts.map((e) => (
+            {items
+              .slice()
+              .reverse()
+              .map((order) => (
+                <Item key={order.id}>
+                  <ItemInfo>
+                    <ItemName>
+                      <BoldText style={{ fontSize: "22px" }}>
+                        {order.ordererName}
+                      </BoldText>
+                    </ItemName>
                     <ItemPrice>
-                      {e.name} - {e.amount}개
+                      <BoldText style={{ fontSize: "20px" }}>
+                        총 {order.totalPrice}원
+                      </BoldText>
                     </ItemPrice>
-                  ))}
-                </ItemInfo>
-                {!order.accepted ? (
-                  <p>승인 대기중</p>
-                ) : (
-                  <p style={{ color: "green" }}>결제 완료</p>
-                )}
-              </Item>
-            ))}
+                    {order.orderedProducts.map((e) => (
+                      <ItemPrice>
+                        {e.name} - {e.amount}개
+                      </ItemPrice>
+                    ))}
+                  </ItemInfo>
+                  {!order.accepted ? (
+                    <p>승인 대기중</p>
+                  ) : (
+                    <p style={{ color: "green" }}>결제 완료</p>
+                  )}
+                </Item>
+              ))}
           </ItemsDiv>
         </Content>
       </Container>

@@ -20,9 +20,8 @@ const FooterDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: blue;
   flex-direction: column;
-  background-color: palegoldenrod;
+  background-color: #cccccc;
   position: relative;
-  height: 150px;
+  height: 300px;
 `;
