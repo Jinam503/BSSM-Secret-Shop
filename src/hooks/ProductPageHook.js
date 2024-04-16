@@ -1,4 +1,5 @@
 import axios from "axios";
+import Toast, { notify } from "../components/Toast";
 
 export const useProductPage = (setItems, products, setProducts) => {
   const fetchProducts = async () => {
@@ -10,6 +11,10 @@ export const useProductPage = (setItems, products, setProducts) => {
         });
     } catch (error) {
       console.error("Error fetching products:", error);
+      notify({
+        type: "error",
+        text: "제품 정보를 가져오는데 실패했습니다.",
+      });
     }
   };
 
@@ -21,7 +26,15 @@ export const useProductPage = (setItems, products, setProducts) => {
       if (updatedProducts[index].amount < updatedProducts[index].maxStock) {
         updatedProducts[index].amount++;
         setProducts(updatedProducts);
-      } else alert("재고 부족");
+        notify({
+          type: "success",
+          text: "장바구니에 " + item.name + "를 추가했습니다.",
+        });
+      } else
+        notify({
+          type: "error",
+          text: "재고가 부족합니다.",
+        });
     } else {
       const newItem = {
         id: item.id,
@@ -35,12 +48,16 @@ export const useProductPage = (setItems, products, setProducts) => {
         maxStock: item.stock,
       };
       setProducts([...products, newItem]);
+      notify({
+        type: "success",
+        text: "장바구니에 " + item.name + "를 추가했습니다.",
+      });
     }
-    alert("장바구니에 " + item.name + " 추가");
   };
 
   return {
     fetchProducts,
     AddProductToCart,
+    Toast,
   };
 };
