@@ -7,13 +7,14 @@ import * as S from "./style/ProductPageStyle";
 
 const Product = () => {
   const categories = ["전체", "음료", "젤리", "과자", "라면"];
-  const { products, setProducts } = useProducts();
+  const { products, setProducts, totalAmount } = useProducts();
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState("전체");
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
   const fetchProducts = async () => {
     try {
       const response = await axios
@@ -35,18 +36,26 @@ const Product = () => {
 
     if (index !== -1) {
       const updatedProducts = [...products];
-      if (updatedProducts[index].amount < updatedProducts[index].maxStock) {
+      if (totalAmount >= 10) {
+        notify({
+          type: "error",
+          text: "상품은 최대 10까지 담을 수 있습니다.",
+        });
+      } else if (
+        updatedProducts[index].amount >= updatedProducts[index].maxStock
+      )
+        notify({
+          type: "error",
+          text: "재고가 부족합니다.",
+        });
+      else {
         updatedProducts[index].amount++;
         setProducts(updatedProducts);
         notify({
           type: "success",
           text: "장바구니에 " + item.name + "를 추가했습니다.",
         });
-      } else
-        notify({
-          type: "error",
-          text: "재고가 부족합니다.",
-        });
+      }
     } else {
       const newItem = {
         id: item.id,

@@ -25,21 +25,14 @@ const Purchase = () => {
     setTotalPrice(totalPrice + (deliveryDesired ? 300 : 0));
   }, [products, deliveryDesired]);
 
-  useEffect(() => {
-    let total = 0;
-    products.forEach((product) => {
-      if (product.checked) {
-        total += product.amount;
-      }
-    });
-    setTotalAmount(total);
-  }, [products]);
-
   const increaseAmount = (index) => {
     const updatedProducts = [...products];
 
     if (totalAmount >= 10) {
-      alert("상품은 최대 10까지 담을 수 있습니다.");
+      notify({
+        type: "error",
+        text: "상품은 최대 10까지 담을 수 있습니다.",
+      });
     } else if (
       updatedProducts[index].amount >= updatedProducts[index].maxStock
     ) {
