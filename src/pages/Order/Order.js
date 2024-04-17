@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useProducts } from "../../components/ProductsContext";
+import * as B from "../../styles/BaseStructueStyle";
 
 const Order = () => {
   const [items, setItems] = useState([]);
@@ -22,7 +23,7 @@ const Order = () => {
   };
   return (
     <div>
-      <Container>
+      <B.BodyContainer>
         <Content>
           <TitleDiv>
             <p style={{ fontSize: "50px", marginBottom: "10px" }}>주문</p>
@@ -37,8 +38,8 @@ const Order = () => {
             {items
               .slice()
               .reverse()
-              .map((order) => (
-                <Item key={order.id}>
+              .map((order, index) => (
+                <Item key={index}>
                   <ItemInfo>
                     <ItemName>
                       <BoldText style={{ fontSize: "22px" }}>
@@ -59,20 +60,25 @@ const Order = () => {
                   {!order.accepted ? (
                     <p>승인 대기중</p>
                   ) : (
-                    <p style={{ color: "green" }}>결제 완료</p>
+                    <BoldText
+                      size="18px"
+                      style={{ color: "green", marginLeft: "auto" }}
+                    >
+                      결제 완료
+                    </BoldText>
                   )}
                 </Item>
               ))}
           </ItemsDiv>
         </Content>
-      </Container>
+      </B.BodyContainer>
     </div>
   );
 };
 
 export default Order;
 const ItemsDiv = styled.div`
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 `;
 const BoldText = styled.p`
   font-size: ${(props) => (props.size ? props.size : "14px")};
@@ -94,7 +100,6 @@ const Item = styled.div`
   border-radius: 7px;
   width: 1000px;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const ItemInfo = styled.div`
@@ -111,7 +116,6 @@ const ItemPrice = styled.div``;
 const Content = styled.div`
   height: auto;
   min-height: 100%;
-  padding-top: 150px;
 `;
 
 const Container = styled.div`
