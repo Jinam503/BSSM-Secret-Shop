@@ -13,9 +13,7 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     let total = 0;
     products.forEach((product) => {
-      if (product.checked) {
-        total += product.amount;
-      }
+      total += product.amount;
     });
     setTotalAmount(total);
   }, [products]);
