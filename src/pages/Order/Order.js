@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useProducts } from "../../components/ProductsContext";
 import * as B from "../../styles/BaseStructueStyle";
 
 const Order = () => {
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetchProducts();
+    fetchOrders();
   }, []);
 
-  const fetchProducts = async () => {
+  const fetchOrders = async () => {
     try {
-      const response = await axios
-        .get(process.env.REACT_APP_SERVER_URL + "api/orders")
-        .then((res) => {
-          setItems(res.data);
-        });
+      const response = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "api/orders"
+      );
+      setItems(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -53,20 +51,30 @@ const Order = () => {
                     </ItemPrice>
                     {order.orderedProducts.map((e) => (
                       <ItemPrice>
-                        {e.name} - {e.amount}개
+                        {e.name} - {e.quantity}개
                       </ItemPrice>
                     ))}
                   </ItemInfo>
-                  {!order.accepted ? (
-                    <p>승인 대기중</p>
-                  ) : (
-                    <BoldText
-                      size="18px"
-                      style={{ color: "green", marginLeft: "auto" }}
-                    >
-                      결제 완료
-                    </BoldText>
-                  )}
+                  <RightItemInfo>
+                    {!order.accepted ? (
+                      <BoldText
+                        size="18px"
+                        style={{ color: "#FF3F3F", marginLeft: "auto" }}
+                      >
+                        승인 대기 중
+                      </BoldText>
+                    ) : (
+                      <BoldText
+                        size="18px"
+                        style={{ color: "green", marginLeft: "auto" }}
+                      >
+                        결제 완료
+                      </BoldText>
+                    )}
+                    <LightText size="12 px">
+                      {order.orderDate.replace("T", "    ").slice(0, -3)}
+                    </LightText>
+                  </RightItemInfo>
                 </Item>
               ))}
           </ItemsDiv>
@@ -77,6 +85,13 @@ const Order = () => {
 };
 
 export default Order;
+
+const RightItemInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
 const ItemsDiv = styled.div`
   margin-bottom: 100px;
 `;
@@ -94,6 +109,7 @@ const TitleDiv = styled.div`
 `;
 const Item = styled.div`
   display: flex;
+  justify-content: space-between;
   background-color: #eeeeee;
   padding: 10px;
   margin-bottom: 10px;

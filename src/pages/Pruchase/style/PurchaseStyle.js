@@ -87,7 +87,6 @@ export const CartPrice = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #fcfcfc;
 `;
 
 export const CartList = styled.div`

@@ -1,29 +1,62 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { useProducts } from "../../components/ProductsContext";
-import { toHaveAccessibleDescription } from "@testing-library/jest-dom/matchers";
+import * as B from "../../styles/BaseStructueStyle";
+import * as S from "./style/HiddenPageStyle";
+import { notify } from "../../components/Toast";
 
 const Hidden = () => {
-  const [items, setItems] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [productPrice, setProductPrice] = useState();
+  const [productName, setProductName] = useState("");
+  const [productImageUrl, setProductImageUrl] = useState("");
+  const [productCategory, setProductCategory] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "api/orders"
+      );
+      setOrders(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      notify({
+        type: "error",
+        text: "주문 정보를 가져오는데 실패했습니다.",
+      });
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
     try {
-      const response = await axios
-        .get(process.env.REACT_APP_SERVER_URL + "api/orders")
-        .then((res) => {
-          setItems(res.data);
-        });
+      const response = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "api/products"
+      );
+      setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
+      notify({
+        type: "error",
+        text: "제품 정보를 가져오는데 실패했습니다.",
+      });
     }
   };
-  const Reject = (orderId) => {
+
+  const Reject = (productId) => {
     axios
-      .delete(process.env.REACT_APP_SERVER_URL + "api/delete_order/" + orderId)
+      .delete(
+        process.env.REACT_APP_SERVER_URL + "api/delete_order/" + productId
+      )
       .then((response) => {
         alert("삭제 성공했습니다");
         window.location.reload();
@@ -33,9 +66,11 @@ const Hidden = () => {
         console.error("Error while deleting order:", error);
       });
   };
-  const Accept = (orderId) => {
+  const Accept = (productId) => {
     axios
-      .put(process.env.REACT_APP_SERVER_URL + "api/update_accepted/" + orderId)
+      .put(
+        process.env.REACT_APP_SERVER_URL + "api/update_accepted/" + productId
+      )
       .then((response) => {
         alert("승인 성공");
         window.location.reload();
@@ -45,115 +80,228 @@ const Hidden = () => {
         console.error("Error while passing order:", error);
       });
   };
+  const deleteProduct = (productId) => {
+    axios
+      .delete(
+        process.env.REACT_APP_SERVER_URL + "api/delete_product/" + productId
+      )
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert("제품 삭제를 처리하는 도중 오류가 발생했습니다.");
+        console.error("Error while delete product:", error);
+      });
+  };
+  const AddProduct = () => {
+    const product = {
+      name: productName,
+      category: productCategory,
+      description: productDescription,
+      imageUrl: productImageUrl,
+      price: productPrice,
+      stock: 0,
+    };
+
+    axios
+      .post(process.env.REACT_APP_SERVER_URL + "api/add_product", product)
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        notify({
+          type: "error",
+          text: "제품 추가에 실패했습니다.",
+        });
+        console.error("Error while adding product:", error);
+      });
+  };
+  const modifyAmout = (id) => {
+    const amount = prompt("수정할 갯수를 입력하세용.");
+    const product = {
+      id: id,
+      stock: amount,
+    };
+    axios
+      .put(
+        process.env.REACT_APP_SERVER_URL + "api/modify_product_amount",
+        product
+      )
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        notify({
+          type: "error",
+          text: "제품 제고 수정에 실패했습니다.",
+        });
+        console.error("Error while modifying product amount:", error);
+      });
+  };
+
   return (
     <div>
-      <Container>
-        <Content>
-          <TitleDiv>
-            <p style={{ fontSize: "50px", marginBottom: "10px" }}>주문 관리</p>
-            <div
-              style={{
-                borderBottom: "2px solid #000000",
-                marginBottom: "10px",
-              }}
-            />
-          </TitleDiv>
-          {items.map((order) => (
-            <Item key={order.id}>
-              <ItemInfo>
-                <ItemName>주문자 이름: {order.ordererName}</ItemName>
-                <ItemPrice>총 {order.totalPrice}원</ItemPrice>
-                {order.orderedProducts.map((e) => (
-                  <ItemPrice>
-                    {e.name} - {e.amount}개
-                  </ItemPrice>
-                ))}
-              </ItemInfo>
-              {!order.accepted && (
-                <Buttons>
-                  <ActionButton
-                    style={{ backgroundColor: "#FF7070" }}
-                    onClick={() => Reject(order.id)}
+      <B.BodyContainer>
+        <S.Content>
+          <S.AddProductDiv>
+            <S.TitleDiv>
+              <p style={{ fontSize: "30px", marginBottom: "10px" }}>
+                제품 추가
+              </p>
+              <div
+                style={{
+                  borderBottom: "1px solid #cccccc",
+                  marginBottom: "10px",
+                }}
+              />
+            </S.TitleDiv>
+            <S.InputBox>
+              <S.BoldText style={{ margin: "10px 0 10px 0" }}>
+                제품 이름
+              </S.BoldText>
+              <S.TextInput
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+                type="text"
+                placeholder="핫식스 더킹 제로 355ml"
+              />
+            </S.InputBox>
+            <S.InputBox>
+              <S.BoldText style={{ margin: "10px 0 10px 0" }}>
+                제품 이미지 URL
+              </S.BoldText>
+              <S.TextInput
+                value={productImageUrl}
+                onChange={(e) => setProductImageUrl(e.target.value)}
+                type="text"
+                placeholder="https://image.jpg"
+              />
+            </S.InputBox>
+            <S.InputBox>
+              <S.BoldText style={{ margin: "10px 0 10px 0" }}>
+                제품 카테고리
+              </S.BoldText>
+              <S.TextInput
+                value={productCategory}
+                onChange={(e) => setProductCategory(e.target.value)}
+                type="text"
+                placeholder="음료"
+              />
+            </S.InputBox>
+            <S.InputBox>
+              <S.BoldText style={{ margin: "10px 0 10px 0" }}>
+                제품 설명
+              </S.BoldText>
+              <S.TextInput
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
+                type="text"
+                placeholder="355ml"
+              />
+            </S.InputBox>
+            <S.InputBox>
+              <S.BoldText style={{ margin: "10px 0 10px 0" }}>
+                제품 가격
+              </S.BoldText>
+              <S.TextInput
+                value={productPrice}
+                inputmode="numeric"
+                onKeyDown={(e) =>
+                  ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                }
+                onChange={(e) => setProductPrice(e.target.value)}
+                type="number"
+                placeholder="1600"
+              />
+            </S.InputBox>
+            <S.PurchaseButton onClick={AddProduct}>
+              <span>
+                <S.BoldText style={{ fontSize: "16px" }}>추가하기</S.BoldText>
+              </span>
+            </S.PurchaseButton>
+          </S.AddProductDiv>
+          <S.ProductsDiv>
+            <S.TitleDiv>
+              <p style={{ fontSize: "30px", marginBottom: "10px" }}>
+                제품 관리
+              </p>
+            </S.TitleDiv>
+            {products
+              .slice()
+              .reverse()
+              ?.map((product, index) => (
+                <S.ProductItem key={product.id} index={index}>
+                  <S.ItemImage src={product.imageUrl} alt={product.name} />
+                  <S.ItemInfo>
+                    <S.BoldText size="16px">{product.name}</S.BoldText>
+                    <S.LightText size="12px">
+                      {product.category}/{product.description}
+                    </S.LightText>
+                    <S.LightText>{product.price}원</S.LightText>
+                  </S.ItemInfo>
+                  <S.ItemStock style={{ marginRight: "15px" }}>
+                    <S.LightText>남아있는 재고:&nbsp;</S.LightText>
+                    <S.BoldText style={{ fontSize: "18px" }}>
+                      {product.stock}
+                    </S.BoldText>
+                  </S.ItemStock>
+                  <S.DeleteFromProductsButton
+                    onClick={() => modifyAmout(product.id)}
                   >
-                    거절
-                  </ActionButton>
-                  <ActionButton
-                    style={{ backgroundColor: "#B1F45B" }}
-                    onClick={() => Accept(order.id)}
+                    재고 수정
+                  </S.DeleteFromProductsButton>
+                  <S.DeleteFromProductsButton
+                    style={{ marginLeft: "5px" }}
+                    onClick={() => deleteProduct(product.id)}
                   >
-                    수락
-                  </ActionButton>
-                </Buttons>
-              )}
-            </Item>
-          ))}
-        </Content>
-      </Container>
+                    삭제
+                  </S.DeleteFromProductsButton>
+                </S.ProductItem>
+              ))}
+          </S.ProductsDiv>
+          <S.ItemsDiv>
+            <S.TitleDiv>
+              <p style={{ fontSize: "30px", marginBottom: "10px" }}>
+                주문 관리
+              </p>
+            </S.TitleDiv>
+            {orders
+              .slice()
+              .reverse()
+              ?.map((order, index) => (
+                <S.OrderItem key={order.id} index={index}>
+                  <S.ItemInfo>
+                    <S.ItemName>주문자 이름: {order.ordererName}</S.ItemName>
+                    <S.ItemPrice>총 {order.totalPrice}원</S.ItemPrice>
+                    {order.orderedProducts?.map((e, index) => (
+                      <S.ItemPrice key={index}>
+                        {e.name} - {e.quantity}개
+                      </S.ItemPrice>
+                    ))}
+                  </S.ItemInfo>
+                  {!order.accepted && (
+                    <S.Buttons>
+                      <S.ActionButton
+                        style={{ backgroundColor: "#FF7070" }}
+                        onClick={() => Reject(order.id)}
+                      >
+                        거절
+                      </S.ActionButton>
+                      <S.ActionButton
+                        style={{ backgroundColor: "#B1F45B" }}
+                        onClick={() => Accept(order.id)}
+                      >
+                        수락
+                      </S.ActionButton>
+                    </S.Buttons>
+                  )}
+                </S.OrderItem>
+              ))}
+          </S.ItemsDiv>
+        </S.Content>
+      </B.BodyContainer>
     </div>
   );
 };
 
 export default Hidden;
-
-const BoldText = styled.p`
-  font-size: ${(props) => (props.size ? props.size : "14px")};
-  font-weight: 1000;
-`;
-const LightText = styled.p`
-  font-size: ${(props) => (props.size ? props.size : "14px")};
-`;
-const TitleDiv = styled.div`
-  justify-content: flex-end;
-  color: black;
-  width: 1000px;
-`;
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  border: none;
-`;
-const ActionButton = styled.button`
-  background-color: red;
-  width: 70px;
-  height: 50px;
-`;
-const Item = styled.div`
-  display: flex;
-  background-color: #eeeeee;
-  padding: 10px;
-  margin: 10px;
-  width: 600px;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ItemInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ItemName = styled.div`
-  font-weight: bold;
-`;
-
-const ItemPrice = styled.div``;
-
-const Content = styled.div`
-  height: auto;
-  min-height: 100%;
-  padding-top: 150px;
-`;
-
-const Container = styled.div`
-  min-height: calc(100vh - 300px);
-  margin-top: 150px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  > * {
-    flex-shrink: 1;
-  }
-`;

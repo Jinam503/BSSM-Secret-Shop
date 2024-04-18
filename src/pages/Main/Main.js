@@ -11,8 +11,13 @@ const Main = () => {
       <a>참여코드: sexy</a>
       <img
         style={{ width: "300px" }}
-        src={process.env.PUBLIC_URL + "/images/QR.jpg"}
+        src={"https://i.postimg.cc/BnDSW0t3/QRcode.jpg"}
       />
+      <br />
+      <br />
+      <br />
+      <br />
+      <p>곧 안성탕면 40개 들어옴 히히</p>
     </B.BodyContainer>
   );
 };
