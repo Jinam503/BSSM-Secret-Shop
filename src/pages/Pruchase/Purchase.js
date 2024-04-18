@@ -4,6 +4,7 @@ import * as B from "../../styles/BaseStructueStyle";
 import * as S from "./style/PurchaseStyle";
 import { useProducts } from "../../components/ProductsContext";
 import { notify } from "../../components/Toast";
+import dayjs from "dayjs";
 
 const Purchase = () => {
   const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
@@ -85,14 +86,20 @@ const Purchase = () => {
           orderedProductsStr += `${product.id}:${product.amount}`;
         }
       });
-
+      const date = dayjs().format("YYYY-MM-DD HH:mm");
       const order = {
         ordererName: ordererName,
         needDelivery: deliveryDesired,
         deliverPlace: deliveryAddress,
+        orderDate: date,
         totalPrice: totalPrice,
         accepted: false,
-        orderedProducts: orderedProductsStr,
+        productInfos: products.map((p) => {
+          return {
+            productId: p.id,
+            quantity: p.amount,
+          };
+        }),
       };
 
       axios
@@ -123,7 +130,7 @@ const Purchase = () => {
           <S.CartList>
             {products.map((product, index) => (
               <S.CartItem key={index}>
-                <S.ItemImage src={process.env.PUBLIC_URL + product.url} />
+                <S.ItemImage src={product.url} />
                 <S.ItemInformation>
                   <S.BoldText size="25px"> {product.name} </S.BoldText>
                   <S.LightText size="12px">
