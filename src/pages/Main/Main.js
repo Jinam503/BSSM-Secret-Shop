@@ -13,11 +13,6 @@ const Main = () => {
         style={{ width: "300px" }}
         src={"https://i.postimg.cc/BnDSW0t3/QRcode.jpg"}
       />
-      <br />
-      <br />
-      <br />
-      <br />
-      <p>곧 안성탕면 40개 들어옴 히히</p>
     </B.BodyContainer>
   );
 };

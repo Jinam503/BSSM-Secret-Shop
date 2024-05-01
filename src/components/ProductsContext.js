@@ -10,14 +10,6 @@ export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
-  useEffect(() => {
-    let total = 0;
-    products.forEach((product) => {
-      total += product.amount;
-    });
-    setTotalAmount(total);
-  }, [products]);
-
   return (
     <ProductsContext.Provider
       value={{ products, setProducts, totalAmount, setTotalAmount }}
