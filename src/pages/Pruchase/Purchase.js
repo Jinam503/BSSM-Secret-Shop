@@ -10,19 +10,26 @@ const Purchase = () => {
   const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
   const [productsPrice, setProductsPrice] = useState(0);
   const [deliveryDesired, setDeliveryDesired] = useState(false);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [ordererName, setOrdererName] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
 
+  const isDiscounting = true;
+  const disCountPercent = 0.8;
+
   useEffect(() => {
     let totalPrice = 0;
     products.forEach((product) => {
-      if (product.checked) {
-        totalPrice += product.price * product.amount;
-      }
+      totalPrice += product.price * product.amount;
     });
     setProductsPrice(totalPrice);
+    if (isDiscounting && totalAmount >= 2) {
+      setDiscountedPrice(Math.round(totalPrice * (1 - disCountPercent)));
+    } else {
+      setDiscountedPrice(0);
+    }
     setTotalPrice(totalPrice + (deliveryDesired ? 300 : 0));
   }, [products, deliveryDesired]);
 
@@ -44,6 +51,7 @@ const Purchase = () => {
     } else {
       updatedProducts[index].amount++;
       setProducts(updatedProducts);
+      setTotalAmount(totalAmount + 1);
     }
   };
 
@@ -52,12 +60,15 @@ const Purchase = () => {
     if (updatedProducts[index].amount > 1) {
       updatedProducts[index].amount--;
       setProducts(updatedProducts);
+
+      setTotalAmount(totalAmount - 1);
     }
   };
 
   const deleteProduct = (index) => {
     const updatedProducts = [...products];
-    updatedProducts.splice(index, 1);
+    const deleteProduct = updatedProducts.splice(index, 1)[0];
+    setTotalAmount(totalAmount - deleteProduct.amount);
     setProducts(updatedProducts);
   };
   const AddOrder = () => {
@@ -92,7 +103,7 @@ const Purchase = () => {
         needDelivery: deliveryDesired,
         deliverPlace: deliveryAddress,
         orderDate: date,
-        totalPrice: totalPrice,
+        totalPrice: totalPrice - discountedPrice,
         accepted: false,
         productInfos: products.map((p) => {
           return {
@@ -190,6 +201,18 @@ const Purchase = () => {
                   {productsPrice}원
                 </S.BoldText>
               </S.Price>
+              {isDiscounting && (
+                <S.Price>
+                  <S.BoldText>할인 가격</S.BoldText>
+                  <S.BoldText
+                    style={{
+                      marginLeft: "auto",
+                    }}
+                  >
+                    {discountedPrice}원
+                  </S.BoldText>
+                </S.Price>
+              )}
               <S.Price>
                 <CheckBox
                   style={{ marginRight: "20px" }}
@@ -217,7 +240,7 @@ const Purchase = () => {
                     marginLeft: "auto",
                   }}
                 >
-                  {totalPrice}원
+                  {totalPrice - discountedPrice}원
                 </S.BoldText>
               </S.Price>
             </S.PriceBox>
@@ -226,6 +249,9 @@ const Purchase = () => {
                 <S.BoldText style={{ margin: "10px 0 10px 0" }}>
                   호실 (3층만)
                 </S.BoldText>
+                <S.LightText style={{ margin: "0 0 10px 0" }}>
+                  밤 배달 가능 (10시 반 ~ 12시)
+                </S.LightText>
                 <S.TextInput
                   type="text"
                   onChange={(e) => setDeliveryAddress(e.target.value)}

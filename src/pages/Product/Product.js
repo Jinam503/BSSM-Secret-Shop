@@ -7,7 +7,7 @@ import * as S from "./style/ProductPageStyle";
 
 const Product = () => {
   const categories = ["전체", "음료", "젤리", "과자", "라면"];
-  const { products, setProducts, totalAmount } = useProducts();
+  const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
   const [productItems, setproductItems] = useState([]);
   const [filtredItems, setFilterdItems] = useState([]);
   const [category, setCategory] = useState("전체");
@@ -58,6 +58,7 @@ const Product = () => {
       else {
         updatedProducts[index].amount++;
         setProducts(updatedProducts);
+        setTotalAmount(totalAmount + 1);
         notify({
           type: "success",
           text: "장바구니에 " + item.name + "를 추가했습니다.",
@@ -88,6 +89,7 @@ const Product = () => {
             maxStock: item.stock,
           };
           setProducts([...products, newItem]);
+          setTotalAmount(totalAmount + 1);
           notify({
             type: "success",
             text: "장바구니에 " + item.name + "를 추가했습니다.",
@@ -96,9 +98,29 @@ const Product = () => {
       }
     }
   };
+
+  const adverTiseContent = [
+    {
+      title: "백진암 생일 이벤트 ~5/16",
+      content: "2개 이상 구매시 20%할인!!!",
+    },
+    {
+      title: "재고 충전 예정",
+      content: "5/2 - 핫식스 48개, 치킨팝 16개",
+    },
+  ];
   return (
     <div>
       <B.BodyContainer>
+        <S.AdvertiseDiv>
+          <S.BoldText size="40px">소식</S.BoldText>
+          {adverTiseContent.map((e) => (
+            <S.AdverTiseItem>
+              <S.BoldText size="30px">{e.title}</S.BoldText>
+              <S.LightText size="25px">{e.content}</S.LightText>
+            </S.AdverTiseItem>
+          ))}
+        </S.AdvertiseDiv>
         <S.Content>
           <S.CategoryDiv>
             {categories.map((c, index) => (

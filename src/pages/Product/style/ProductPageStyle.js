@@ -93,3 +93,16 @@ export const CategoryItem = styled.div`
   cursor: pointer;
   background-color: ${(props) => (props.isSelected ? "#dddddd" : "")};
 `;
+
+export const AdvertiseDiv = styled.div`
+  min-height: 150px;
+  padding: 20px 0 20px 10px;
+  justify-content: center;
+  background-color: #d0f1ff;
+  width: 1050px;
+  margin-bottom: 20px;
+`;
+
+export const AdverTiseItem = styled.div`
+  margin-top: 10px;
+`;
