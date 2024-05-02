@@ -13,6 +13,7 @@ const Hidden = () => {
   const [productImageUrl, setProductImageUrl] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [productDescription, setProductDescription] = useState("");
+  const [limited, setLimited] = useState(false);
 
   useEffect(() => {
     fetchOrders();
@@ -101,6 +102,7 @@ const Hidden = () => {
       imageUrl: productImageUrl,
       price: productPrice,
       stock: 0,
+      limited: limited,
     };
 
     axios
@@ -212,6 +214,16 @@ const Hidden = () => {
                 onChange={(e) => setProductPrice(e.target.value)}
                 type="number"
                 placeholder="1600"
+              />
+            </S.InputBox>
+            <S.InputBox>
+              <S.BoldText style={{ margin: "10px 0 10px 0" }}>
+                한정판
+              </S.BoldText>
+              <S.TextInput
+                checked={limited}
+                onChange={(e) => setLimited(e.target.checked)}
+                type="checkbox"
               />
             </S.InputBox>
             <S.PurchaseButton onClick={AddProduct}>

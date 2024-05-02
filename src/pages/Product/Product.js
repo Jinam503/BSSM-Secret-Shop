@@ -17,18 +17,23 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
-    setFilterdItems(
-      productItems.filter(
-        (item) => category === "전체" || item.category === category
-      )
+    const filteredByCategory = productItems.filter(
+      (item) => category === "전체" || item.category === category
     );
+    const sortedItems = filteredByCategory
+      .slice()
+      .sort((a, b) =>
+        a.limited && !b.limited ? -1 : b.limited && !a.limited ? 1 : 0
+      );
+    setFilterdItems(sortedItems);
   }, [category, productItems]);
 
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_SERVER_URL + "api/products"
+        process.env.REACT_APP_SERVER_URL + "api/products_except_limited"
       );
+      console.log(response.data);
       setproductItems(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
