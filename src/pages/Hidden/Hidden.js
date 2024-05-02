@@ -44,15 +44,13 @@ const Hidden = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        process.env.REACT_APP_SERVER_URL + "admin",
-        {
-          headers: {
-            Authorization: localStorage.getItem("accessToken"),
-          },
-        }
+        process.env.REACT_APP_SERVER_URL +
+          "admin?key=" +
+          localStorage.getItem("accessToken")
       );
+      console.log(response);
       if (!response.data) {
-        router("/");
+        router("/fuck_you");
       }
     })();
   }, []);
