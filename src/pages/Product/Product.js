@@ -105,15 +105,11 @@ const Product = () => {
 
   const adverTiseContent = [
     {
-      title: "백진암 생일 이벤트 ~5/16",
+      title: "백진암 생일 이벤트 ~5/10",
       content: "2개 이상 구매시 20%할인!!!",
     },
     {
       title: "재고 충전 예정",
-      content: "5/2 - 핫식스 48개",
-    },
-    {
-      title: "",
       content: "5/3 - 치킨팝 뿌링클 16개",
     },
   ];
@@ -146,6 +142,17 @@ const Product = () => {
             {filtredItems.map((item, index) => (
               <S.Item key={item.id} index={index}>
                 <S.ItemImage src={item.imageUrl} alt={item.name} />
+                {item.limited && (
+                  <img
+                    src="https://i.postimg.cc/zGBB0scm/limited-edition-icon.png"
+                    alt="한정판아이콘"
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      marginRight: "20px",
+                    }}
+                  />
+                )}
                 <S.ItemInfo>
                   <S.BoldText size="16px">{item.name}</S.BoldText>
                   <S.LightText size="12px">
