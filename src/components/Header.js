@@ -11,7 +11,7 @@ const Header = () => {
         to="/"
         style={{ textDecoration: "none", color: "black", width: "100%" }}
       >
-        <HeaderDiv>BSSM 비밀 상점 v1.1.0</HeaderDiv>
+        <HeaderDiv>BSSM 비밀 상점 v1.1.1</HeaderDiv>
       </Link>
       <MenuContainer>
         <MenuItem
