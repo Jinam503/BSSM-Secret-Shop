@@ -106,7 +106,11 @@ const Product = () => {
     },
     {
       title: "재고 충전 예정",
-      content: "5/2 - 핫식스 48개, 치킨팝 16개",
+      content: "5/2 - 핫식스 48개",
+    },
+    {
+      title: "",
+      content: "5/3 - 치킨팝 뿌링클 16개",
     },
   ];
   return (
