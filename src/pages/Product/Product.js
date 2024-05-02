@@ -85,7 +85,6 @@ const Product = () => {
           const newItem = {
             id: item.id,
             name: item.name,
-            checked: true,
             category: item.category,
             description: item.description,
             url: item.imageUrl,
