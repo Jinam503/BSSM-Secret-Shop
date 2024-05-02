@@ -123,6 +123,7 @@ const Purchase = () => {
           setProducts([]);
           setDeliveryDesired(false);
           setOrdererName("");
+          setTotalAmount(0);
         })
         .catch((error) => {
           notify({
