@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Product from "./pages/Product/Product";
@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Main />}></Route>
@@ -41,7 +41,7 @@ const App = () => {
           pauseOnHover={false}
           theme="colored"
         />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };
