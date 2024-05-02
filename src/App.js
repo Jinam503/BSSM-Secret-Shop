@@ -11,6 +11,7 @@ import Main from "./pages/Main/Main";
 import Hidden from "./pages/Hidden/Hidden";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GetLoss from "./pages/GetLoss/GetLoss";
 const App = () => {
   return (
     <div>
@@ -26,6 +27,7 @@ const App = () => {
             path={"/" + process.env.REACT_APP_SECRET_URL}
             element={<Hidden />}
           ></Route>
+          <Route path="/fuck_you" element={<GetLoss />}></Route>
         </Routes>
         <Footer />
 

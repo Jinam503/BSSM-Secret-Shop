@@ -4,6 +4,7 @@ import { useProducts } from "../../components/ProductsContext";
 import * as B from "../../styles/BaseStructueStyle";
 import * as S from "./style/HiddenPageStyle";
 import { notify } from "../../components/Toast";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Hidden = () => {
   const [orders, setOrders] = useState([]);
@@ -14,6 +15,8 @@ const Hidden = () => {
   const [productCategory, setProductCategory] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [limited, setLimited] = useState(false);
+
+  const router = useNavigate();
 
   useEffect(() => {
     fetchOrders();
@@ -36,6 +39,22 @@ const Hidden = () => {
 
   useEffect(() => {
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "admin",
+        {
+          headers: {
+            Authorization: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      if (!response.data) {
+        router("/");
+      }
+    })();
   }, []);
 
   const fetchProducts = async () => {
