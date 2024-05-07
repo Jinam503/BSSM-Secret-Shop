@@ -110,7 +110,7 @@ const Product = () => {
     },
     {
       title: "재고 충전 예정",
-      content: "5/3 - 치킨팝 뿌링클 16개",
+      content: "5/8 - 치킨팝 뿌링클 32개, 그냥 치킨팝 16개",
     },
   ];
   return (
