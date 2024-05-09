@@ -9,7 +9,7 @@ const Product = () => {
   const categories = ["전체", "음료", "젤리", "과자", "라면"];
   const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
   const [productItems, setproductItems] = useState([]);
-  const [filtredItems, setFilterdItems] = useState([]);
+  const [filtredItems, setFilteredItems] = useState([]);
   const [category, setCategory] = useState("전체");
 
   useEffect(() => {
@@ -20,12 +20,12 @@ const Product = () => {
     const filteredByCategory = productItems.filter(
       (item) => category === "전체" || item.category === category
     );
-    const sortedItems = filteredByCategory
-      .slice()
-      .sort((a, b) =>
-        a.limited && !b.limited ? -1 : b.limited && !a.limited ? 1 : 0
-      );
-    setFilterdItems(sortedItems);
+
+    setFilteredItems(
+      [...filteredByCategory].sort((a, b) =>
+        a.limited ? 1 : a.stock < b.stock ? 1 : a.stock > b.stock ? -1 : 0
+      )
+    );
   }, [category, productItems]);
 
   const fetchProducts = async () => {
