@@ -16,7 +16,7 @@ const Purchase = () => {
   const [ordererName, setOrdererName] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
 
-  const isDiscounting = true;
+  const isDiscounting = false;
   const disCountPercent = 0.8;
 
   useEffect(() => {

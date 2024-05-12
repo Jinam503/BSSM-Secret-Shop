@@ -105,12 +105,8 @@ const Product = () => {
 
   const adverTiseContent = [
     {
-      title: "백진암 생일 이벤트 ~5/10",
-      content: "2개 이상 구매시 20%할인!!!",
-    },
-    {
-      title: "재고 충전 예정",
-      content: "5/8 - 치킨팝 뿌링클 32개, 그냥 치킨팝 16개",
+      title: "돈 없어요 ㅠ",
+      content: "현재 자금 부족으로 재고 충전이 원활하지 않을 수도 있습니다.",
     },
   ];
   return (
