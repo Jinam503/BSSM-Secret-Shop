@@ -24,10 +24,15 @@ const Hidden = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(
-        process.env.REACT_APP_SERVER_URL + "api/orders"
+      const response1 = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "api/10_orders/" + 0
       );
-      setOrders(response.data);
+      setOrders(response1.data);
+
+      const response2 = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "api/10_orders/" + 1
+      );
+      setOrders((prevOrders) => [...prevOrders, ...response2.data]);
     } catch (error) {
       console.error("Error fetching products:", error);
       notify({
@@ -323,6 +328,9 @@ const Hidden = () => {
                         수락
                       </S.ActionButton>
                     </S.Buttons>
+                  )}
+                  {order.need_delivery == 1 && (
+                    <S.BoldText>{order.deliver_place}</S.BoldText>
                   )}
                 </S.OrderItem>
               ))}

@@ -9,7 +9,7 @@ const Product = () => {
   const categories = ["전체", "음료", "젤리", "과자", "라면"];
   const { products, setProducts, totalAmount, setTotalAmount } = useProducts();
   const [productItems, setproductItems] = useState([]);
-  const [filtredItems, setFilterdItems] = useState([]);
+  const [filtredItems, setFilteredItems] = useState([]);
   const [category, setCategory] = useState("전체");
 
   useEffect(() => {
@@ -20,12 +20,16 @@ const Product = () => {
     const filteredByCategory = productItems.filter(
       (item) => category === "전체" || item.category === category
     );
-    const sortedItems = filteredByCategory
-      .slice()
-      .sort((a, b) =>
-        a.limited && !b.limited ? -1 : b.limited && !a.limited ? 1 : 0
-      );
-    setFilterdItems(sortedItems);
+
+    const filteredByStock = filteredByCategory.filter(
+      (item) => item.stock !== 0
+    );
+
+    setFilteredItems(
+      [...filteredByStock].sort((a, b) =>
+        a.limited ? 1 : a.stock < b.stock ? 1 : a.stock > b.stock ? -1 : 0
+      )
+    );
   }, [category, productItems]);
 
   const fetchProducts = async () => {
@@ -105,12 +109,8 @@ const Product = () => {
 
   const adverTiseContent = [
     {
-      title: "백진암 생일 이벤트 ~5/10",
-      content: "2개 이상 구매시 20%할인!!!",
-    },
-    {
-      title: "재고 충전 예정",
-      content: "5/8 - 치킨팝 뿌링클 32개, 그냥 치킨팝 16개",
+      title: "돈 없어요 ㅠ",
+      content: "현재 자금 부족으로 재고 충전이 원활하지 않을 수도 있습니다.",
     },
   ];
   return (
