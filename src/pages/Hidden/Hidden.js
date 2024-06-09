@@ -32,8 +32,7 @@ const Hidden = () => {
       const response2 = await axios.get(
         process.env.REACT_APP_SERVER_URL + "api/10_orders/" + 1
       );
-      setOrders((prevOrders) => [...prevOrders, ...response2.data]);
-      setOrders(orders.reverse());
+      setOrders([...orders1, ...orders2].reverse());
     } catch (error) {
       console.error("Error fetching products:", error);
       notify({
