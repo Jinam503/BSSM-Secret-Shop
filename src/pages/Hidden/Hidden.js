@@ -33,6 +33,7 @@ const Hidden = () => {
         process.env.REACT_APP_SERVER_URL + "api/10_orders/" + 1
       );
       setOrders((prevOrders) => [...prevOrders, ...response2.data]);
+      setOrders(orders.reverse());
     } catch (error) {
       console.error("Error fetching products:", error);
       notify({
