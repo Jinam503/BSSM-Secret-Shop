@@ -305,7 +305,7 @@ const Hidden = () => {
               ?.map((order, index) => (
                 <S.OrderItem key={order.id} index={index}>
                   <S.ItemInfo>
-                    <S.ItemName>주문자 이름: {order.ordererName}</S.ItemName>
+                    <S.ItemName>주문자 이름 : {order.ordererName}</S.ItemName>
                     <S.ItemPrice>총 {order.totalPrice}원</S.ItemPrice>
                     {order.orderedProducts?.map((e, index) => (
                       <S.ItemPrice key={index}>
