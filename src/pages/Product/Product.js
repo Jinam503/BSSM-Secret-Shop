@@ -17,19 +17,19 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
-    const filteredByCategory = productItems.filter(
-      (item) => category === "전체" || item.category === category
-    );
-
-    const filteredByStock = filteredByCategory.filter(
-      (item) => item.stock !== 0
-    );
-
-    setFilteredItems(
-      [...filteredByStock].sort((a, b) =>
-        a.limited ? 1 : a.stock < b.stock ? 1 : a.stock > b.stock ? -1 : 0
+    const filteredItems = productItems
+      .filter(
+        (item) =>
+          (category === "전체" || item.category === category) &&
+          item.stock !== 0
       )
-    );
+      .sort((a, b) => {
+        if (a.limited && !b.limited) return -1;
+        if (!a.limited && b.limited) return 1;
+        return b.stock - a.stock;
+      });
+
+    setFilteredItems(filteredItems);
   }, [category, productItems]);
 
   const fetchProducts = async () => {
