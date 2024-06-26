@@ -5,7 +5,7 @@ const Feedback = () => {
   return (
     <div>
       <Container>
-        <Content>피트백</Content>
+        <Content>피드백</Content>
       </Container>
     </div>
   );
