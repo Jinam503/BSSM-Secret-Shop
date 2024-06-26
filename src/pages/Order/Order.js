@@ -109,7 +109,7 @@ const LightText = styled.p`
 const TitleDiv = styled.div`
   justify-content: flex-end;
   color: black;
-  width: 1000px;
+  width: 100%;
 `;
 const Item = styled.div`
   display: flex;
@@ -118,7 +118,7 @@ const Item = styled.div`
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 7px;
-  width: 1000px;
+  width: 100%;
   align-items: center;
 `;
 
