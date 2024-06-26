@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const ItemsDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 export const AddToCartButton = styled.button`
   width: fit-content;
@@ -49,17 +48,13 @@ export const Item = styled.div`
   display: flex;
   background-color: white;
   padding: 10px;
-  width: 100%;
+  width: 800px;
   align-items: center;
   border-top: ${(props) => (props.index === 0 ? "1px solid #cccccc" : "")};
   border-bottom: 1px solid #cccccc;
 
   &:hover {
     background-color: #eeeeee;
-  }
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
   }
 `;
 
@@ -77,7 +72,7 @@ export const ItemInfo = styled.div`
 export const Content = styled.div`
   display: flex;
   margin-bottom: 150px;
-  width: 100%;
+  width: 1050px;
   gap: 50px;
 `;
 export const CategoryDiv = styled.div`
@@ -104,7 +99,7 @@ export const AdvertiseDiv = styled.div`
   padding: 20px 0 20px 10px;
   justify-content: center;
   background-color: #d0f1ff;
-  width: 100%;
+  width: 1050px;
   margin-bottom: 20px;
 `;
 

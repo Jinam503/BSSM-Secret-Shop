@@ -80,7 +80,7 @@ export const TitleDiv = styled.div`
 export const CartDiv = styled.div`
   display: flex;
   gap: 30px;
-  width: 100%;
+  width: 1000px;
   margin-bottom: 100px;
 `;
 export const CartPrice = styled.div`
@@ -92,7 +92,7 @@ export const CartPrice = styled.div`
 export const CartList = styled.div`
   flex-direction: column;
   display: flex;
-  width: 100%;
+  width: 600px;
   background-color: #f5f5f5;
   border-radius: 10px;
   min-height: 450px;

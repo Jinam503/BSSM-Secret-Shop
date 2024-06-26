@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useProducts } from "../../components/ProductsContext";
 import * as B from "../../styles/BaseStructueStyle";
 import * as S from "./style/HiddenPageStyle";
 import { notify } from "../../components/Toast";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Hidden = () => {
   const [orders, setOrders] = useState([]);
