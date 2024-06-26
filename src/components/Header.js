@@ -11,7 +11,7 @@ const Header = () => {
         to="/"
         style={{ textDecoration: "none", color: "black", width: "100%" }}
       >
-        <HeaderDiv>BSSM 비밀 상점 v1.1.1</HeaderDiv>
+        <HeaderDiv>BSSM 비밀 상점 v1.2.1</HeaderDiv>
       </Link>
       <MenuContainer>
         <MenuItem
@@ -66,10 +66,11 @@ const HeaderDiv = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 40px;
-  font-weight: 1000;
+  font-weight: 900;
   height: 100px;
   width: 100%;
-  background-color: #ffcbc0;
+  background-color: cornflowerblue;
+  color: white;
 `;
 
 const MenuContainer = styled.div`
